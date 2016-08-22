@@ -13,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Docker\Docker;
-use Docker\Http\DockerClient as Client;
+use Docker\DockerClient as Client;
 
 /**
  * Just some helpful debugging stuff for now.
@@ -47,7 +47,7 @@ class DrupalCICommandBase extends SymfonyCommand {
 
   public function getDocker()
     {
-        $client = Client::createWithEnv();
+        $client = Client::createFromEnv();
         if (null === $this->docker) {
             $this->docker = new Docker($client);
         }
@@ -60,6 +60,11 @@ class DrupalCICommandBase extends SymfonyCommand {
     // if (null === $this->getManager()) {
       return $this->getDocker()->getImageManager();
     // }
+    }
+
+  public function getContainerManager()
+    {
+      return $this->getDocker()->getContainerManager();
     }
 
 }

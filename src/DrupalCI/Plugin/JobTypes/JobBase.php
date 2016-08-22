@@ -20,7 +20,7 @@ use Symfony\Component\Console\Tests\Output\ConsoleOutputTest;
 use Symfony\Component\Process\Process;
 use DrupalCI\Console\Jobs\ContainerBase;
 use Docker\Docker;
-use Docker\Http\DockerClient as Client;
+use Docker\DockerClient as Client;
 use Symfony\Component\Yaml\Yaml;
 use Docker\Container;
 use PDO;
@@ -144,7 +144,7 @@ class JobBase extends ContainerBase implements JobInterface {
    */
   public function getDocker()
   {
-    $client = Client::createWithEnv();
+    $client = Client::createFromEnv();
     if (null === $this->docker) {
       $this->docker = new Docker($client);
     }
